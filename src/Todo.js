@@ -27,9 +27,11 @@ const Todo = () => {
 
     const handleUpdate = (todo) => {
         if (updateStatus.flag && updateStatus.data.id === todo.id) {
+            // if todo app is already on update mode, then reset (cancel edit)
             setTodoText('');
             setUpdateStatus({data: null, flag: false});
         } else {
+            // otherwise execute this block
             setTodoText(todo.title);
             setUpdateStatus({data: todo, flag: true});
         }
@@ -37,17 +39,24 @@ const Todo = () => {
 
     const handleDelete = (id) => {
         dispatch(deleteTodo(id));
+
+        // if todo app is on update mode, then reset
         setTodoText('');
         setUpdateStatus({data: null, flag: false});
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        // if input field empty, then return
         if (!todoText) return;
+
         if (updateStatus.flag) {
+            // if todo app is on update mode, then execute this block
             dispatch(updateTodo({...updateStatus.data, title: todoText}));
             setUpdateStatus({data: null, flag: false});
         } else {
+            // otherwise execute this block
             dispatch(addTodo({id: Date.now(), title: todoText, completed: false}));
         }
         setTodoText('');
