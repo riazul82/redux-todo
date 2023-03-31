@@ -8,5 +8,7 @@ module.exports = {
       fontFamily: {spectral: 'Spectral'}
     },
   },
-  plugins: [],
+  plugins: [
+    require('flowbite/plugin')
+  ]
 }
